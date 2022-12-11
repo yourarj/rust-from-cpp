@@ -44,27 +44,41 @@ int main()
     chrono::system_clock::time_point stop;
     chrono::system_clock::duration duration;
 
-    int8_t var[2][2] = {{1, 2}, {1, 3}};
-
-    // START: RUST perf block
-    perf::Package *pack = new perf::Package(var);
-    start = chrono::high_resolution_clock::now();
-    ruster_space::mutate(pack);
-    stop = chrono::high_resolution_clock::now();
-    duration = chrono::duration_cast<chrono::nanoseconds>(stop - start);
-    cout << "Time taken by rust call function: "
-         << duration.count() << " nanoseconds" << endl;
-    // END: RUST perf block
+    int8_t var[2][2] = {{1, 2}, {3, 4}};
 
     // START: C++ perf block
+    cout << endl
+         << "### C++ ###" << endl;
     perf::Package *another = new perf::Package(var);
+    another->printPackage();
+
     start = chrono::high_resolution_clock::now();
     another->mutate_c();
     stop = chrono::high_resolution_clock::now();
     duration = chrono::duration_cast<chrono::nanoseconds>(stop - start);
+
+    another->printPackage();
     cout << "Time taken by native call function: "
-         << duration.count() << " nanoseconds" << endl;
+         << duration.count() << " nanoseconds" << endl
+         << endl;
     // END: C++ perf block
+
+    // START: RUST perf block
+    cout << endl
+         << "### RUST ###" << endl;
+    perf::Package *pack = new perf::Package(var);
+    pack->printPackage();
+
+    start = chrono::high_resolution_clock::now();
+    ruster_space::mutate(pack);
+    stop = chrono::high_resolution_clock::now();
+    duration = chrono::duration_cast<chrono::nanoseconds>(stop - start);
+
+    pack->printPackage();
+    cout << "Time taken by rust call function: "
+         << duration.count() << " nanoseconds" << endl
+         << endl;
+    // END: RUST perf block
 
     return 0;
 }
