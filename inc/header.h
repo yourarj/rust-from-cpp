@@ -15,9 +15,12 @@ namespace perf
         int16_t ssixteen;
         uint8_t ueight;
         int8_t seight;
+        int8_t (*arr_ptr)[2];
 
     public:
-        Package() : ueight(8), usixteen(16), uthirtytwo(32), usixtyfour(64), seight(-8), ssixteen(-16), sthirtytwo(-32), ssixtyfour(-64) {}
+        Package(int8_t (*arr_ptra)[2]) : ueight(8), usixteen(16), uthirtytwo(32), usixtyfour(64), seight(-8), ssixteen(-16), sthirtytwo(-32), ssixtyfour(-64), arr_ptr(arr_ptra)
+        {
+        }
         void inline mutate_c();
         void printPackage();
     };

@@ -1,5 +1,5 @@
 #[repr(C)]
-struct Package {
+struct Package<'arr_life> {
     usixtyfour: u64, // 8 byte
     ssixtyfour: i64, // 8 byte
     uthirtytwo: u32, // 4 byte
@@ -8,9 +8,10 @@ struct Package {
     ssixteen: i16,   // 2 byte
     ueight: u8,      // 1 byte
     seight: i8,      // 1 byte
+    arr_ptr: &'arr_life mut [[i8; 2]],
 }
 
-impl Package {
+impl<'arr_life> Package<'arr_life> {
     #[inline]
     pub fn mutate_package(&mut self) {
         self.ueight *= 2;
@@ -21,6 +22,8 @@ impl Package {
         self.ssixteen *= 2;
         self.sthirtytwo *= 2;
         self.ssixtyfour *= 2;
+        // for simplicity let mutate single element of slice
+        self.arr_ptr[0][0] += 10;
     }
 }
 
