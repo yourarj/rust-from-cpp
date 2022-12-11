@@ -1,13 +1,13 @@
 #[repr(C)]
 struct Package {
-    usixtyfour: u64,
-    ssixtyfour: i64,
-    uthirtytwo: u32,
-    sthirtytwo: i32,
-    usixteen: u16,
-    ssixteen: i16,
-    ueight: u8,
-    seight: i8,
+    usixtyfour: u64, // 8 byte
+    ssixtyfour: i64, // 8 byte
+    uthirtytwo: u32, // 4 byte
+    sthirtytwo: i32, // 4 byte
+    usixteen: u16,   // 2 byte
+    ssixteen: i16,   // 2 byte
+    ueight: u8,      // 1 byte
+    seight: i8,      // 1 byte
 }
 
 impl Package {
