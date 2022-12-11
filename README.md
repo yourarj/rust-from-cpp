@@ -5,6 +5,8 @@ This project aims to experiment integrating rust in C++ project
 ## How to Build & Run
 
 ```bash
+# assuming running these commands from project root
+
 # create build dir
 mkdir -p build
 
