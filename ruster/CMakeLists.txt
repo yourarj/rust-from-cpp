@@ -7,7 +7,7 @@ else ()
 endif ()
 
 if(ENABLE_LTO)
-    set(RUST_FLAGS "-Clinker-plugin-lto" "-Clinker=clang-13" "-Clink-arg=-fuse-ld=lld-13")
+    set(RUST_FLAGS "-Clinker-plugin-lto" "-Clinker=clang-14" "-Clink-arg=-fuse-ld=lld-14")
 endif()
 
 set(RUSTER_LIB "${CMAKE_CURRENT_BINARY_DIR}/${TARGET_DIR}/libruster.a")

@@ -2,6 +2,12 @@
 
 This project aims to experiment integrating rust in C++ project
 
+## Pre-requisites
+
+If you are running with `-DENABLE_LTO=ON` switch, make sure that two environment variables `CC=clang-14` and `CXX=clang++-14` are set according to available clang version.
+
+Rust llvm and local llvm should have same version.
+
 ## How to Build & Run
 
 ```bash
@@ -15,6 +21,9 @@ cd build
 
 # build with cross-language LTO off
 cmake -DENABLE_LTO=OFF -DCMAKE_BUILD_TYPE=Release ..
+
+# make 
+make -j
 
 # run executable
 ./main
