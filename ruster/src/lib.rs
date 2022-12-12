@@ -8,7 +8,7 @@ struct Package<'arr_life> {
     ssixteen: i16,   // 2 byte
     ueight: u8,      // 1 byte
     seight: i8,      // 1 byte
-    arr_ptr: &'arr_life mut [[i8; 2]],
+    arr_ptr: &'arr_life mut [[i8; 2]; 2],
 }
 
 impl<'arr_life> Package<'arr_life> {
