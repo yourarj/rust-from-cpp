@@ -1,3 +1,5 @@
+use std::pin::Pin;
+
 #[repr(C)]
 struct Package<'arr_life> {
     usixtyfour: u64, // 8 byte
@@ -34,17 +36,25 @@ mod ffi {
     unsafe extern "C++" {
         include!("header.h");
         type Package;
+        fn new_package() -> UniquePtr<Package>;
+        fn get_a_mutable_pointer(self: Pin<&mut Package>) -> *mut i8;
     }
 
     #[namespace = "ruster_space"]
     extern "Rust" {
         unsafe fn mutate(pack: *mut Package);
+        pub fn demonstrate_pinned() -> *mut i8;
     }
 }
 
 pub unsafe fn mutate(pack: *mut ffi::Package) {
     let rust_pack = pack as *mut Package;
     (*rust_pack).mutate_package();
+}
+
+pub fn demonstrate_pinned() -> *mut i8 {
+    let mut pack = unsafe { Pin::from(Box::from_raw(ffi::new_package().into_raw())) };
+    pack.as_mut().get_a_mutable_pointer()
 }
 
 #[cfg(test)]

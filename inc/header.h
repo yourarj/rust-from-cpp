@@ -23,8 +23,11 @@ namespace perf
         }
         void inline mutate_c();
         void printPackage();
+
+        int8_t *get_a_mutable_pointer() { return arr_ptr[0]; }
     };
 
-    std::shared_ptr<Package> make_package();
+    std::unique_ptr<Package>
+    new_package();
 
 }
