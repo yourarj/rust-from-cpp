@@ -3,8 +3,6 @@ name = "ruster"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
 cxx = "1.0"
 
@@ -13,3 +11,7 @@ cxx-build = "1.0"
 
 [lib]
 crate-type = ["staticlib"]
+
+[profile.release-with-debug]
+inherits = "release"
+debug = true

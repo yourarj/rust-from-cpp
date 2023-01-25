@@ -2,28 +2,28 @@ use std::pin::Pin;
 
 #[repr(C)]
 struct Package<'arr_life> {
-    usixtyfour: u64, // 8 byte
-    ssixtyfour: i64, // 8 byte
-    uthirtytwo: u32, // 4 byte
-    sthirtytwo: i32, // 4 byte
-    usixteen: u16,   // 2 byte
-    ssixteen: i16,   // 2 byte
-    ueight: u8,      // 1 byte
-    seight: i8,      // 1 byte
+    u_sixty_four: u64, // 8 byte
+    s_sixty_four: i64, // 8 byte
+    u_thirty_two: u32, // 4 byte
+    s_thirty_two: i32, // 4 byte
+    u_sixteen: u16,   // 2 byte
+    s_sixteen: i16,   // 2 byte
+    u_eight: u8,      // 1 byte
+    s_eight: i8,      // 1 byte
     arr_ptr: &'arr_life mut [[i8; 2]; 2],
 }
 
 impl<'arr_life> Package<'arr_life> {
     #[inline]
     pub fn mutate_package(&mut self) {
-        self.ueight *= 2;
-        self.usixteen *= 2;
-        self.uthirtytwo *= 2;
-        self.usixtyfour *= 2;
-        self.seight *= 2;
-        self.ssixteen *= 2;
-        self.sthirtytwo *= 2;
-        self.ssixtyfour *= 2;
+        self.u_eight *= 2;
+        self.u_sixteen *= 2;
+        self.u_thirty_two *= 2;
+        self.u_sixty_four *= 2;
+        self.s_eight *= 2;
+        self.s_sixteen *= 2;
+        self.s_thirty_two *= 2;
+        self.s_sixty_four *= 2;
         // for simplicity let mutate single element of slice
         self.arr_ptr[0][0] += 10;
     }

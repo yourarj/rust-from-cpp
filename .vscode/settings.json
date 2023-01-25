@@ -3,5 +3,13 @@
         "chrono": "cpp",
         "ostream": "cpp",
         "iostream": "cpp"
-    }
+    },
+    "cSpell.words": [
+        "Arjun",
+        "DCMAKE",
+        "DENABLE",
+        "lldb",
+        "repr",
+        "ruster"
+    ]
 }

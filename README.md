@@ -6,7 +6,7 @@ This project aims to experiment integrating rust in C++ project
 
 Considering Ubuntu
 
-`sudo apt install clang lldb llvm  lld`
+`sudo apt install clang lldb llvm lld`
 
 ## Pre-requisites
 
@@ -17,6 +17,9 @@ Rust llvm and local llvm should have same version.
 ## How to Build & Run
 
 ```bash
+# install cmake
+sudo apt install cmake
+
 # assuming running these commands from project root
 
 # create build dir
