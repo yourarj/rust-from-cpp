@@ -7,6 +7,11 @@ cmake_minimum_required(VERSION 3.15)
 
 set (CMAKE_CXX_STANDARD 17)
 
+message("-- CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
+message("-- CMAKE_CXX_FLAGS_RELEASE: ${CMAKE_CXX_FLAGS_RELEASE}")
+message("-- CMAKE_CXX_FLAGS_RELWITHDEBINFO: ${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
+message("-- CMAKE_CXX_FLAGS_DEBUG: ${CMAKE_CXX_FLAGS_DEBUG}")
+
 option(ENABLE_LTO "Enable cross language linking time optimization" ON)
 if(ENABLE_LTO)
   include(CheckIPOSupported)
