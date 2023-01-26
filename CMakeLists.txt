@@ -28,8 +28,11 @@ endif()
 include_directories(${CMAKE_BINARY_DIR}/ruster)
 include_directories(inc)
 
+find_package(benchmark REQUIRED)
+add_subdirectory(benchmark)
+
 add_subdirectory(ruster)
 
 add_executable(main main.cpp)
 
-target_link_libraries(main ruster)
+target_link_libraries(main ruster benchmark::benchmark)
