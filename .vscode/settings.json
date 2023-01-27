@@ -1,4 +1,7 @@
 {
+    "rust-analyzer.linkedProjects": [
+        "ruster/Cargo.toml"
+    ],
     "files.associations": {
         "chrono": "cpp",
         "ostream": "cpp",

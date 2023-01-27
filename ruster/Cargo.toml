@@ -12,6 +12,10 @@ cxx-build = "1.0"
 [lib]
 crate-type = ["staticlib"]
 
+[profile.release]
+codegen-units = 1
+lto = "fat"
+
 [profile.release-with-debug]
 inherits = "release"
 debug = true

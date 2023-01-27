@@ -32,4 +32,14 @@ add_subdirectory(ruster)
 
 add_executable(main main.cpp)
 
+if(CMAKE_COMPILER_IS_GNUCXX)
+    message("-- Linking with GNUCXX")
+    set(
+        CMAKE_STATIC_LINKER_FLAGS_RELEASE
+            "${CMAKE_STATIC_LINKER_FLAGS_RELEASE} -flto"
+    )
+else()
+    message("-- Not linking with GNUCXX")
+endif()
+
 target_link_libraries(main ruster)
