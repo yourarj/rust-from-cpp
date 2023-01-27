@@ -9,8 +9,17 @@ cxx = "1.0"
 [build-dependencies]
 cxx-build = "1.0"
 
+[[bin]]
+name = "rust-tester"
+path = "bin/rust_jump_tester.rs"
+
 [lib]
-crate-type = ["staticlib"]
+crate-type = ["staticlib", "lib"]
+
+[profile.release]
+codegen-units = 1
+lto = "fat"
+
 
 [profile.release-with-debug]
 inherits = "release"
