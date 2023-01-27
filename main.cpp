@@ -23,7 +23,7 @@ namespace perf
                     << std::endl;
      }
 
-     void inline Package::mutate_c()
+     void inline Package::mutate()
      {
           this->u_eight *= 2;
           this->u_sixteen *= 2;
@@ -36,10 +36,6 @@ namespace perf
           this->arr_ptr[0][0] += 10;
      }
 
-     std::unique_ptr<Package> new_package()
-     {
-          return std::make_unique<Package>(perf_var);
-     }
 } // namespace perf
 
 // main method
@@ -51,19 +47,17 @@ int main()
      chrono::system_clock::duration duration;
 
      int8_t var[2][2] = {{1, 2}, {3, 4}};
+     perf::Package *pack = new perf::Package(var);
 
      // START: RUST perf block
      cout << endl
           << "### RUST ###" << endl;
-     perf::Package *pack = new perf::Package(var);
-     pack->printPackage();
 
      start = chrono::high_resolution_clock::now();
      ruster_space::mutate(pack);
      stop = chrono::high_resolution_clock::now();
      duration = chrono::duration_cast<chrono::nanoseconds>(stop - start);
 
-     pack->printPackage();
      cout << "Time taken by rust call function: "
           << duration.count() << " nanoseconds" << endl
           << endl;
@@ -72,26 +66,18 @@ int main()
      // START: C++ perf block
      cout << endl
           << "### C++ ###" << endl;
-     perf::Package *another = new perf::Package(var);
-     another->printPackage();
 
      start = chrono::high_resolution_clock::now();
-     another->mutate_c();
+     pack->mutate();
      stop = chrono::high_resolution_clock::now();
      duration = chrono::duration_cast<chrono::nanoseconds>(stop - start);
 
-     another->printPackage();
      cout << "Time taken by native call function: "
           << duration.count() << " nanoseconds" << endl
           << endl;
      // END: C++ perf block
 
-
-     // check pinned object shared from C++ to rust and sent back to C++
-     auto num = ruster_space::demonstrate_pinned();
-     cout << "Number I got from ruster: "
-          << +*num << " " << endl
-          << endl;
+     pack->printPackage();
 
      return 0;
 }
