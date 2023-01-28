@@ -21,7 +21,7 @@ namespace perf
         Package(int8_t (*arr_ptr_a)[2]) : u_eight(8), u_sixteen(16), u_thirty_two(32), u_sixty_four(64), s_eight(-8), s_sixteen(-16), s_thirty_two(-32), s_sixty_four(-64), arr_ptr(arr_ptr_a)
         {
         }
-        void inline mutate();
+        void __attribute__((noinline)) mutate();
         void printPackage();
     };
 }

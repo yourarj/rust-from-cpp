@@ -23,7 +23,7 @@ namespace perf
                     << std::endl;
      }
 
-     void inline Package::mutate()
+     void __attribute__((noinline)) Package::mutate()
      {
           this->u_eight *= 2;
           this->u_sixteen *= 2;
@@ -42,42 +42,42 @@ namespace perf
 int main()
 {
 
-     chrono::system_clock::time_point start;
-     chrono::system_clock::time_point stop;
-     chrono::system_clock::duration duration;
+     // chrono::system_clock::time_point start;
+     // chrono::system_clock::time_point stop;
+     // chrono::system_clock::duration duration;
 
      int8_t var[2][2] = {{1, 2}, {3, 4}};
      perf::Package *pack = new perf::Package(var);
 
-     // START: RUST perf block
-     cout << endl
-          << "### RUST ###" << endl;
+     // // START: RUST perf block
+     // cout << endl
+     //      << "### RUST ###" << endl;
 
-     start = chrono::high_resolution_clock::now();
+     // start = chrono::high_resolution_clock::now();
      ruster_space::mutate(pack);
-     stop = chrono::high_resolution_clock::now();
-     duration = chrono::duration_cast<chrono::nanoseconds>(stop - start);
+     // stop = chrono::high_resolution_clock::now();
+     // duration = chrono::duration_cast<chrono::nanoseconds>(stop - start);
 
-     cout << "Time taken by rust call function: "
-          << duration.count() << " nanoseconds" << endl
-          << endl;
+     // cout << "Time taken by rust call function: "
+     //      << duration.count() << " nanoseconds" << endl
+     //      << endl;
      // END: RUST perf block
 
      // START: C++ perf block
-     cout << endl
-          << "### C++ ###" << endl;
+     // cout << endl
+     //      << "### C++ ###" << endl;
 
-     start = chrono::high_resolution_clock::now();
+     // start = chrono::high_resolution_clock::now();
      pack->mutate();
-     stop = chrono::high_resolution_clock::now();
-     duration = chrono::duration_cast<chrono::nanoseconds>(stop - start);
+     // stop = chrono::high_resolution_clock::now();
+     // duration = chrono::duration_cast<chrono::nanoseconds>(stop - start);
 
-     cout << "Time taken by native call function: "
-          << duration.count() << " nanoseconds" << endl
-          << endl;
+     // cout << "Time taken by native call function: "
+     //      << duration.count() << " nanoseconds" << endl
+     //      << endl;
      // END: C++ perf block
 
-     pack->printPackage();
+     // pack->printPackage();
 
      return 0;
 }

@@ -42,6 +42,7 @@ mod ffi {
     }
 }
 
+#[inline]
 pub unsafe fn mutate(pack: *mut ffi::Package) {
     let pack_from_c = pack as *mut Package;
     (*pack_from_c).mutate();
