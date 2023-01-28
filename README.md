@@ -36,4 +36,15 @@ make -j
 
 # run executable
 ./main
+
+# or a shortcut
+# for Release
+rm -rf build/ && cmake -S . -B build/debug -DCMAKE_BUILD_TYPE=Debug -DENABLE_LTO=OFF && cmake --build build/debug && ./build/debug/main
+
+# for Release
+rm -rf build/ && cmake -S . -B build/release -DCMAKE_BUILD_TYPE=Release -DENABLE_LTO=OFF && cmake --build build/release && ./build/release/main
+
+# for RelWithDebInfo
+rm -rf build/ && cmake -S . -B build/relwithdebinfo -DCMAKE_BUILD_TYPE=RelWithDebInfo -DENABLE_LTO=OFF && cmake --build build/relwithdebinfo && ./build/relwithdebinfo/main
+
 ```
