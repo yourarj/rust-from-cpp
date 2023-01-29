@@ -5,6 +5,8 @@
 
 using namespace std;
 
+#define TOTAL_RUNS 10000
+#define WARM_UPS 100
 namespace perf
 {
      int8_t perf_var[2][2] = {{1, 2}, {3, 4}};
@@ -41,17 +43,54 @@ int main()
 
      chrono::system_clock::time_point start;
      chrono::system_clock::time_point stop;
-     chrono::system_clock::duration duration;
+     chrono::system_clock::duration diff;
      chrono::system_clock::duration min = chrono::system_clock::duration::max();
      chrono::system_clock::duration max = chrono::system_clock::duration::min();
-     chrono::system_clock::duration avg;
+     chrono::system_clock::duration avg = chrono::system_clock::duration::zero();
 
      int8_t var[2][2] = {{1, 2}, {3, 4}};
      perf::Package *pack = new perf::Package(var);
 
+     // START: C++ perf block
+     cout << endl
+          << "### C++ ###" << endl;
+
+     for (int i = 0; i < TOTAL_RUNS; i++)
+     {
+          start = chrono::high_resolution_clock::now();
+          pack->mutate();
+          stop = chrono::high_resolution_clock::now();
+          if (i < WARM_UPS)
+               continue;
+          diff = chrono::duration_cast<chrono::nanoseconds>(stop - start);
+          if (min > diff)
+          {
+               min = diff;
+          }
+          if (max < diff)
+          {
+               max = diff;
+          }
+
+          avg += diff;
+     }
+
+     avg = avg / (TOTAL_RUNS - WARM_UPS);
+
+     cout
+         << "Time taken by CPP call function: "
+         << "MIN: " << min.count() << "ns "
+         << "MAX: " << max.count() << "ns "
+         << "AVG: " << avg.count() << "ns "
+         << endl;
+
      // // START: RUST perf block
      cout << endl
           << "### RUST ###" << endl;
+
+     min = chrono::system_clock::duration::max();
+     max = chrono::system_clock::duration::min();
+     avg = chrono::system_clock::duration::zero();
 
      for (int i = 0; i < 10000; i++)
      {
@@ -60,44 +99,26 @@ int main()
           stop = chrono::high_resolution_clock::now();
           if (i < 100)
                continue;
-          duration = chrono::duration_cast<chrono::nanoseconds>(stop - start);
-          if (min > duration)
+          diff = chrono::duration_cast<chrono::nanoseconds>(stop - start);
+          if (min > diff)
           {
-               min = duration;
+               min = diff;
           }
-          if (max < duration)
+          if (max < diff)
           {
-               max = duration;
+               max = diff;
           }
 
-          avg = (avg + duration) / 2;
+          avg += diff;
      }
+     avg = avg / (TOTAL_RUNS - WARM_UPS);
 
      cout << "Time taken by rust call function: "
-             "MIN"
-          << min.count() << "ns "
-          << "MAX"
-          << max.count() << "ns "
-          << "AVG"
-          << avg.count() << "ns "
+          << "MIN: " << min.count() << "ns "
+          << "MAX: " << max.count() << "ns "
+          << "AVG: " << avg.count() << "ns "
           << endl;
      // END: RUST perf block
-
-     // START: C++ perf block
-     // cout << endl
-     //      << "### C++ ###" << endl;
-
-     // start = chrono::high_resolution_clock::now();
-     // pack->mutate();
-     // stop = chrono::high_resolution_clock::now();
-     // duration = chrono::duration_cast<chrono::nanoseconds>(stop - start);
-
-     // cout << "Time taken by native call function: "
-     //      << duration.count() << " nanoseconds" << endl
-     //      << endl;
-     // END: C++ perf block
-
-     // pack->printPackage();
 
      return pack->get_u_sixty_four();
 }

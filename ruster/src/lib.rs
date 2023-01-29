@@ -13,7 +13,7 @@ struct Package<'arr_life> {
 
 impl<'arr_life> Package<'arr_life> {
     #[inline]
-    pub fn mutate(&mut self) {
+    pub fn _mutate(&mut self) {
         self.u_sixty_four += 3;
     }
 }
