@@ -14,16 +14,7 @@ struct Package<'arr_life> {
 impl<'arr_life> Package<'arr_life> {
     #[inline]
     pub fn mutate(&mut self) {
-        self.u_eight *= 2;
-        self.u_sixteen *= 2;
-        self.u_thirty_two *= 2;
-        self.u_sixty_four *= 2;
-        self.s_eight *= 2;
-        self.s_sixteen *= 2;
-        self.s_thirty_two *= 2;
-        self.s_sixty_four *= 2;
-        // for simplicity let mutate single element of slice
-        self.arr_ptr[0][0] += 10;
+        self.u_sixty_four += 3;
     }
 }
 
@@ -45,7 +36,7 @@ mod ffi {
 #[inline]
 pub unsafe fn mutate(pack: *mut ffi::Package) {
     let pack_from_c = pack as *mut Package;
-    (*pack_from_c).mutate();
+    (*pack_from_c).u_sixty_four += 3;
 }
 
 #[cfg(test)]

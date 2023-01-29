@@ -23,5 +23,6 @@ namespace perf
         }
         void __attribute__((noinline)) mutate();
         void printPackage();
+        uint8_t inline get_u_sixty_four();
     };
 }

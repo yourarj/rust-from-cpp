@@ -25,15 +25,12 @@ namespace perf
 
      void __attribute__((noinline)) Package::mutate()
      {
-          this->u_eight *= 2;
-          this->u_sixteen *= 2;
-          this->u_thirty_two *= 2;
-          this->u_sixty_four *= 2;
-          this->s_eight *= 2;
-          this->s_sixteen *= 2;
-          this->s_thirty_two *= 2;
-          this->s_sixty_four *= 2;
-          this->arr_ptr[0][0] += 10;
+          this->u_sixty_four += 3;
+     }
+
+     uint8_t inline Package::get_u_sixty_four()
+     {
+          return u_sixty_four;
      }
 
 } // namespace perf
@@ -42,25 +39,48 @@ namespace perf
 int main()
 {
 
-     // chrono::system_clock::time_point start;
-     // chrono::system_clock::time_point stop;
-     // chrono::system_clock::duration duration;
+     chrono::system_clock::time_point start;
+     chrono::system_clock::time_point stop;
+     chrono::system_clock::duration duration;
+     chrono::system_clock::duration min = chrono::system_clock::duration::max();
+     chrono::system_clock::duration max = chrono::system_clock::duration::min();
+     chrono::system_clock::duration avg;
 
      int8_t var[2][2] = {{1, 2}, {3, 4}};
      perf::Package *pack = new perf::Package(var);
 
      // // START: RUST perf block
-     // cout << endl
-     //      << "### RUST ###" << endl;
+     cout << endl
+          << "### RUST ###" << endl;
 
-     // start = chrono::high_resolution_clock::now();
-     ruster_space::mutate(pack);
-     // stop = chrono::high_resolution_clock::now();
-     // duration = chrono::duration_cast<chrono::nanoseconds>(stop - start);
+     for (int i = 0; i < 10000; i++)
+     {
+          start = chrono::high_resolution_clock::now();
+          ruster_space::mutate(pack);
+          stop = chrono::high_resolution_clock::now();
+          if (i < 100)
+               continue;
+          duration = chrono::duration_cast<chrono::nanoseconds>(stop - start);
+          if (min > duration)
+          {
+               min = duration;
+          }
+          if (max < duration)
+          {
+               max = duration;
+          }
 
-     // cout << "Time taken by rust call function: "
-     //      << duration.count() << " nanoseconds" << endl
-     //      << endl;
+          avg = (avg + duration) / 2;
+     }
+
+     cout << "Time taken by rust call function: "
+             "MIN"
+          << min.count() << "ns "
+          << "MAX"
+          << max.count() << "ns "
+          << "AVG"
+          << avg.count() << "ns "
+          << endl;
      // END: RUST perf block
 
      // START: C++ perf block
@@ -68,7 +88,7 @@ int main()
      //      << "### C++ ###" << endl;
 
      // start = chrono::high_resolution_clock::now();
-     pack->mutate();
+     // pack->mutate();
      // stop = chrono::high_resolution_clock::now();
      // duration = chrono::duration_cast<chrono::nanoseconds>(stop - start);
 
@@ -79,5 +99,5 @@ int main()
 
      // pack->printPackage();
 
-     return 0;
+     return pack->get_u_sixty_four();
 }

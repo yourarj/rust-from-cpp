@@ -1,0 +1,7 @@
+[alias]
+b = "build"
+c = "check"
+d = "doc"
+t = "test"
+r = "run"
+rm = "remove"

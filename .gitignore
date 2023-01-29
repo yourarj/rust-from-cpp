@@ -34,3 +34,4 @@
 **/build
 **/target
 **/launch.json
+**/perf.data*
