@@ -53,11 +53,15 @@
         "typeinfo": "cpp"
     },
     "cSpell.words": [
+        "aarch",
         "Arjun",
         "DCMAKE",
         "DENABLE",
         "lldb",
+        "relwithdebinfo",
         "repr",
-        "ruster"
+        "rustc",
+        "ruster",
+        "rustup"
     ]
 }

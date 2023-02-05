@@ -5,3 +5,7 @@ d = "doc"
 t = "test"
 r = "run"
 rm = "remove"
+
+[build]
+target = ["aarch64-unknown-linux-gnu"]
+rustflags = ["-Ctarget-cpu=apple-a11"]

@@ -14,6 +14,18 @@ If you are running with `-DENABLE_LTO=ON` switch, make sure that two environment
 
 Rust llvm and local llvm should have same version.
 
+## Target aarch64
+```bash
+# add target
+rustup target add aarch64-unknown-linux-gnu
+
+# install g++ for aarch64-unknown-linux-gnu
+sudo apt-get install g++-aarch64-linux-gnu
+
+# print target spec
+rustc +nightly -Z unstable-options --print target-spec-json --target aarch64-unknown-linux-gnu
+```
+
 ## How to Build & Run
 
 ```bash

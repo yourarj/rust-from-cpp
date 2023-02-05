@@ -1,3 +1,4 @@
+#![no_std]
 #[repr(C)]
 struct Package<'arr_life> {
     u_sixty_four: u64, // 8 byte

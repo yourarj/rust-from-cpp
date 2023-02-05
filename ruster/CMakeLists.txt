@@ -1,11 +1,11 @@
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
-    set(CARGO_CMD cargo build --verbose)
+    set(CARGO_CMD cargo build)
     set(TARGET_DIR "debug")
 elseif(CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
-    set(CARGO_CMD cargo build --profile release-with-debug --verbose)
+    set(CARGO_CMD cargo build --profile release-with-debug)
     set(TARGET_DIR "release-with-debug")
 else ()
-    set(CARGO_CMD cargo build --release --verbose)
+    set(CARGO_CMD cargo build --release)
     set(TARGET_DIR "release")
 endif ()
 
@@ -25,7 +25,7 @@ add_custom_command(
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-target_link_libraries(ruster pthread dl ${RUSTER_LIB})
+target_link_libraries(ruster ${RUSTER_LIB})
 
 add_test(NAME ruster_test 
     COMMAND cargo test
